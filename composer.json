@@ -1,15 +1,18 @@
 {
     "name": "kristianlentino/yii2excel-model",
-    "description": "A Yii2 librarty to export automatically models in excel",
+    "description": "A package to export automatically models in excel",
     "type": "library",
-    "minimum-stability": "stable",
     "require": {
-        "php": ">=7.4",
-        "yiisoft/yii2": "~2.0.14",
-        "yiisoft/yii2-bootstrap": "~2.0.0",
-        "codemix/yii2-excelexport": "^2.7"
+        "yiisoft/yii2": "2.0.42.1",
+        "codemix/yii2-excelexport": "^2.7",
+        "yidas/yii2-bower-asset": "2.0.13.1"
     },
     "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Kristianlentino\\Yii2excelModel\\": "src/"
+        }
+    },
     "authors": [
         {
             "name": "Kristian Lentino",
