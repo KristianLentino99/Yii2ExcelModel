@@ -11,6 +11,7 @@ use yii\helpers\Inflector;
 class ExportableModel
 {
 	public ?string $file_name;
+	public ?string $file_name_suffix = 'export_';
 	public string $extension = AcceptedFormats::FORMAT_EXCEL;
 	/**
 	 * if this variable is not empty then the library will save the file in the specified path
@@ -22,7 +23,10 @@ class ExportableModel
 		if (empty($this->file_name)) {
 
 			$className = get_called_class();
-			$this->file_name = Inflector::slug($className);
+			$class = new $className();
+			$reflection = new \ReflectionClass($class);
+
+			$this->file_name = $this->file_name_suffix . Inflector::slug($reflection->getShortName());
 		}
 	}
 
@@ -35,6 +39,10 @@ class ExportableModel
 
 			$this->getFileName();
 		}
+
+		echo '<pre>';
+		print_r($this->file_name);
+		exit();
 	}
 
 	private function check()
@@ -43,7 +51,7 @@ class ExportableModel
 
 		$implemented_classes = class_implements($calledClass);
 
-		if(!in_array('ExcelExportableInterface',$implemented_classes)){
+		if(!in_array('Kristianlentino\Yii2excelModel\ExcelExportableInterface',$implemented_classes)){
 
 			throw new InterfaceNotImplementedException("You must implement the ExcelExportableInterface on the classe: $calledClass");
 		}
